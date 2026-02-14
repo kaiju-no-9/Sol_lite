@@ -4,52 +4,28 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function OrdersScreen() {
     const router = useRouter();
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color="#fff" />
-                </TouchableOpacity>
-                <Text style={styles.title}>Orders</Text>
-            </View>
+        <SafeAreaView >
+            <TouchableOpacity style ={{
+                marginHorizontal:16,
+                marginVertical:16,
+                flexDirection:'row',
+                alignItems:'center',
+                gap:8,
+                backgroundColor:'#54ca67ff',
+                padding:16,
+                borderRadius:12,
+            }} onPress={()=>router.back()}>
+                <Text>Go Back</Text>
 
-            <View style={styles.content}>
-                <Text style={styles.placeholderText}>No orders found</Text>
-            </View>
+            </TouchableOpacity>
+            
         </SafeAreaView>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0a0a1a',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#1a1a2e',
-    },
-    backButton: {
-        marginRight: 16,
-    },
-    title: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    content: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    placeholderText: {
-        color: '#888',
-        fontSize: 16,
-    },
-});
+const styles = StyleSheet.create({});
