@@ -9,8 +9,8 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
-export function SwapScreen() {
+import { SafeAreaView } from "react-native-safe-area-context";
+export  default function SwapScreen() {
   const [fromAmount, setFromAmount] = useState("100");
   const [toAmount, setToAmount] = useState("0.28014");
   const [fromToken, setFromToken] = useState("USDC");
@@ -33,8 +33,9 @@ export function SwapScreen() {
 
   return (
     <ScrollView style={s.scroll} contentContainerStyle={s.content}>
+        <SafeAreaView>
       <Text style={s.title}>Swap Tokens</Text>
-
+      </SafeAreaView>
       {/* From Token Card */}
       <View style={[s.card, { marginBottom: 10 }]}>
         <View style={s.cardHeader}>

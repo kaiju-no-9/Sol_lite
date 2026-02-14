@@ -1,4 +1,6 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   View,
   Text,
@@ -12,11 +14,13 @@ import {
   Linking,
 } from "react-native";
 
+
 // ============================================
 // Solana RPC
 // ============================================
 
 const RPC = "https://api.mainnet-beta.solana.com";
+
 
 const rpc = async (method: string, params: any[]) => {
   const res = await fetch(RPC, {
@@ -75,7 +79,8 @@ const timeAgo = (ts: number) => {
 // Wallet Screen
 // ============================================
 
-export function WalletScreen() {
+export default function WalletScreen() {
+    const router = useRouter();
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState<number | null>(null);
@@ -107,10 +112,12 @@ export function WalletScreen() {
   };
 
   return (
+    
     <ScrollView style={s.scroll}>
+       <SafeAreaView> 
       <Text style={s.title}>SolScan</Text>
       <Text style={s.subtitle}>Explore any Solana wallet</Text>
-
+      </SafeAreaView>
       <View style={s.inputContainer}>
         <TextInput
           style={s.input}
@@ -125,6 +132,7 @@ export function WalletScreen() {
           editable={true}
         />
       </View>
+     
 
       <View style={s.btnRow}>
         <TouchableOpacity
@@ -161,12 +169,15 @@ export function WalletScreen() {
           <FlatList
             data={tokens}
             keyExtractor={(t) => t.mint}
-            scrollEnabled={false}
+            scrollEnabled={true}
             renderItem={({ item }) => (
-              <View style={s.row}>
+              <TouchableOpacity style={s.row} onPress={()=>{
+                router.push(`/token/${item.mint}`);
+              }}
+              >
                 <Text style={s.mint}>{short(item.mint, 6)}</Text>
                 <Text style={s.amount}>{item.amount}</Text>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </>
@@ -178,7 +189,7 @@ export function WalletScreen() {
           <FlatList
             data={txns}
             keyExtractor={(t) => t.sig}
-            scrollEnabled={false}
+            scrollEnabled={true}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={s.row}
@@ -203,6 +214,7 @@ export function WalletScreen() {
 
       <View style={{ height: 100 }} />
     </ScrollView>
+    
   );
 }
 
